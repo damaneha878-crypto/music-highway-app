@@ -1,0 +1,272 @@
+import { useMemo, useState } from 'react';
+
+const releases = [
+  {
+    title: 'Midnight Run',
+    type: 'Single',
+    description: 'A neon-lit anthem built for empty roads, late-night city lights, and impossible dreams.',
+    accent: '#ff6b6b',
+    tag: 'New',
+  },
+  {
+    title: 'Cinder Bloom',
+    type: 'EP',
+    description: 'A cinematic blend of rock, soul, and electronic textures with intimate storytelling.',
+    accent: '#ffd166',
+    tag: 'Popular',
+  },
+  {
+    title: 'Horizon Echo',
+    type: 'Album',
+    description: 'A widescreen journey through distance, memory, and the fragile thrill of movement.',
+    accent: '#7bdff2',
+    tag: 'Featured',
+  },
+];
+
+const tourDates = [
+  { city: 'Los Angeles, CA', venue: 'The Echo Room', date: 'May 18', status: 'Tickets' },
+  { city: 'New York, NY', venue: 'Mercury Hall', date: 'May 25', status: 'Almost Full' },
+  { city: 'Chicago, IL', venue: 'Bluebird Theater', date: 'Jun 02', status: 'Tickets' },
+  { city: 'Austin, TX', venue: 'The Docks', date: 'Jun 09', status: 'Tickets' },
+];
+
+const gallery = [
+  'Night skyline',
+  'Studio session',
+  'On stage',
+  'Behind the lens',
+  'Road trip',
+  'Fan club',
+];
+
+const tracks = [
+  {
+    title: 'Midnight Run',
+    artist: 'Music Highway',
+    duration: '3:42',
+    src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  },
+  {
+    title: 'Glass Horizon',
+    artist: 'Music Highway',
+    duration: '4:06',
+    src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+  },
+  {
+    title: 'Afterglow Motel',
+    artist: 'Music Highway',
+    duration: '3:58',
+    src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+  },
+  {
+    title: 'Open Road',
+    artist: 'Music Highway',
+    duration: '4:14',
+    src: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+  },
+];
+
+const stats = [
+  { value: '1.4M+', label: 'Monthly listeners' },
+  { value: '48', label: 'Cities toured' },
+  { value: '9', label: 'Original releases' },
+  { value: '14k', label: 'Patron supporters' },
+];
+
+export default function App() {
+  const [activeTrack, setActiveTrack] = useState(0);
+
+  const currentTrack = useMemo(() => tracks[activeTrack], [activeTrack]);
+
+  return (
+    <div className="page-shell">
+      <header className="topbar">
+        <div className="brand-wrap">
+          <div className="brand-mark">MH</div>
+          <div>
+            <span className="brand-name">Music Highway</span>
+          </div>
+        </div>
+
+        <nav className="nav" aria-label="Main navigation">
+          <a href="#about">About</a>
+          <a href="#music">Music</a>
+          <a href="#tour">Tour</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <button className="outline-button">Join the list</button>
+      </header>
+
+      <main>
+        <section className="hero section-spacing">
+          <div className="hero-copy">
+            <p className="eyebrow">New single out now</p>
+            <h1>Find the rhythm in every mile.</h1>
+            <p className="lede">
+              Music Highway is an indie-rock project built for late-night highways, sunrise stories,
+              and unforgettable live shows.
+            </p>
+
+            <div className="cta-row">
+              <a className="primary-button" href="#music">
+                Listen now
+              </a>
+              <a className="secondary-button" href="#tour">
+                Book a show
+              </a>
+            </div>
+
+            <div className="stats-grid" aria-label="Artist stats">
+              {stats.map((stat) => (
+                <div key={stat.label} className="stat-box">
+                  <strong>{stat.value}</strong>
+                  <span>{stat.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="hero-panel">
+            <div className="album-art">
+              <div className="art-glow" aria-hidden="true" />
+              <div className="art-card">
+                <span className="mini-label">Now streaming</span>
+                <h3>Midnight Run</h3>
+                <p>Live from the road</p>
+              </div>
+            </div>
+
+            <div className="player-box">
+              <div className="track-meta">
+                <span className="track-pill">Featured</span>
+                <div>
+                  <p className="track-title">{currentTrack.title}</p>
+                  <span className="track-subtitle">{currentTrack.artist}</span>
+                </div>
+              </div>
+
+              <audio controls src={currentTrack.src} />
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="section-spacing about-section">
+          <div className="section-heading">
+            <p className="eyebrow">About the artist</p>
+            <h2>Built for the open road and the long night.</h2>
+          </div>
+
+          <div className="about-grid">
+            <div className="story-card large">
+              <p>
+                Music Highway began as a series of demos recorded in borrowed studios and roadside motels.
+                What started as a solo sketch grew into a full-band story of motion — one that blends raw
+                guitar textures, cinematic synths, and an unwavering sense of place.
+              </p>
+            </div>
+            <div className="story-card">
+              <p>
+                The project captures the feeling of crossing city lines at 2AM: restless, hopeful, and always
+                moving toward the next horizon.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="music" className="section-spacing releases-section">
+          <div className="section-heading row-between">
+            <div>
+              <p className="eyebrow">Latest releases</p>
+              <h2>New music for the road ahead.</h2>
+            </div>
+            <a href="#contact" className="text-link">
+              View all releases →
+            </a>
+          </div>
+
+          <div className="releases-grid">
+            {releases.map((release) => (
+              <article key={release.title} className="release-card" style={{ '--accent': release.accent }}>
+                <div className="release-badge">{release.tag}</div>
+                <div className="release-visual" aria-hidden="true" />
+                <div className="release-copy">
+                  <span>{release.type}</span>
+                  <h3>{release.title}</h3>
+                  <p>{release.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section id="tour" className="section-spacing tour-section">
+          <div className="section-heading">
+            <p className="eyebrow">Tour dates</p>
+            <h2>Catch the next live set.</h2>
+          </div>
+
+          <div className="tour-list">
+            {tourDates.map((show) => (
+              <div key={`${show.city}-${show.date}`} className="show-row">
+                <div className="show-date">
+                  <span>{show.date}</span>
+                </div>
+                <div className="show-location">
+                  <strong>{show.city}</strong>
+                  <span>{show.venue}</span>
+                </div>
+                <button className="tiny-button">{show.status}</button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="gallery" className="section-spacing gallery-section">
+          <div className="section-heading">
+            <p className="eyebrow">Gallery</p>
+            <h2>Scenes from the road.</h2>
+          </div>
+
+          <div className="gallery-grid">
+            {gallery.map((item, index) => (
+              <div key={item} className={`media-card media-${index + 1}`}>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="section-spacing newsletter-section">
+          <div className="newsletter-card">
+            <div>
+              <p className="eyebrow">Fan club</p>
+              <h2>Get early access to new drops and private livestreams.</h2>
+            </div>
+            <form className="newsletter-form">
+              <input type="email" placeholder="Your email address" aria-label="Email address" />
+              <button type="submit">Sign up</button>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer id="contact" className="footer">
+        <div>
+          <span className="brand-name">Music Highway</span>
+        </div>
+        <div className="footer-links">
+          <a href="mailto:hello@musichighway.com">hello@musichighway.com</a>
+          <a href="https://instagram.com" target="_blank" rel="noreferrer">
+            Instagram
+          </a>
+          <a href="https://spotify.com" target="_blank" rel="noreferrer">
+            Spotify
+          </a>
+        </div>
+      </footer>
+    </div>
+  );
+}
